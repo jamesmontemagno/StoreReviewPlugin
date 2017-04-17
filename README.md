@@ -1,2 +1,14 @@
-# StoreReviewPlugin
-Request app store reviews across Xamarin and Windows applications
+
+**Platform Support**
+
+|Platform|Version|
+| ------------------- | :------------------: |
+|Xamarin.iOS|iOS 7+|
+|Xamarin.Android|API 10+|
+
+
+
+
+#### License
+Under MIT, see LICENSE file.
+

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+   <metadata minClientVersion="2.8.1">
+       <id>Xam.Plugin.StoreReview</id>
+       <version>$version$</version>
+       <title>Launch Maps Plugin for Xamarin and Windows</title>
+       <authors>James Montemagno</authors>
+       <owners>James Montemagno</owners>
+       <licenseUrl>https://github.com/jamesmontemagno/LaunchMapsPlugin/blob/master/LICENSE</licenseUrl>
+       <projectUrl>https://github.com/jamesmontemagno/LaunchMapsPlugin</projectUrl>
+       <iconUrl>http://www.refractored.com/images/external_map_icon.png</iconUrl>
+       <requireLicenseAcceptance>false</requireLicenseAcceptance>
+       <description>
+         Open external maps to navigate to a specific geolocation or address. Option to launch with navigation option on iOS as well.
+       </description>
+     <releaseNotes>
+         [3.0.0]
+         -Breaking changes: 
+         ---New namespace: Plugin.StoreReview
+         ---Now NavigateTo is of type Task for proper async/await
+         -Fix for crash on iOS if address was typed wrong
+         -NavigateTo Now returns a bool if success
+         -UWP support!
+     </releaseNotes>
+       <summary>Open external maps to navigate to a specific geolocation or address.</summary>
+       <tags>xamarin, pcl, xam.pcl, maps, navigation, external maps, windows phone, winphone, wp8, winrt, android, xamarin.forms, ios</tags>
+       <dependencies>
+       </dependencies>
+   </metadata>
+   <files>
+ <file src="nuget\readme.txt" target="readme.txt" />
+<!--Core-->
+     <file src="src\StoreReview.Plugin\bin\Release\Plugin.StoreReview.dll" target="lib\portable-net45+wp80+win8+wpa81\Plugin.StoreReview.dll" />
+     <file src="src\StoreReview.Plugin\bin\Release\Plugin.StoreReview.xml" target="lib\portable-net45+wp80+win8+wpa81\Plugin.StoreReview.xml" />
+     <file src="src\StoreReview.Plugin\bin\Release\Plugin.StoreReview.pdb" target="lib\portable-net45+wp80+win8+wpa81\Plugin.StoreReview.pdb" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.dll" target="lib\portable-net45+wp80+win8+wpa81\Plugin.StoreReview.Abstractions.dll" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.xml" target="lib\portable-net45+wp80+win8+wpa81\Plugin.StoreReview.Abstractions.xml" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.pdb" target="lib\portable-net45+wp80+win8+wpa81\Plugin.StoreReview.Abstractions.pdb" />
+
+     <!--Win Phone Silverlight-->
+     <file src="src\StoreReview.Plugin.WindowsPhone8\bin\Release\Plugin.StoreReview.dll" target="lib\wp8\Plugin.StoreReview.dll" />
+     <file src="src\StoreReview.Plugin.WindowsPhone8\bin\Release\Plugin.StoreReview.xml" target="lib\wp8\Plugin.StoreReview.xml" />
+     <file src="src\StoreReview.Plugin.WindowsPhone8\bin\Release\Plugin.StoreReview.pdb" target="lib\wp8\Plugin.StoreReview.pdb" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.dll" target="lib\wp8\Plugin.StoreReview.Abstractions.dll" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.xml" target="lib\wp8\Plugin.StoreReview.Abstractions.xml" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.pdb" target="lib\wp8\Plugin.StoreReview.Abstractions.pdb" />
+
+     <!--Win Phone 81-->
+     <file src="src\StoreReview.Plugin.WindowsPhone81\bin\Release\Plugin.StoreReview.dll" target="lib\wpa81\Plugin.StoreReview.dll" />
+     <file src="src\StoreReview.Plugin.WindowsPhone81\bin\Release\Plugin.StoreReview.xml" target="lib\wpa81\Plugin.StoreReview.xml" />
+     <file src="src\StoreReview.Plugin.WindowsPhone81\bin\Release\Plugin.StoreReview.pdb" target="lib\wpa81\Plugin.StoreReview.pdb" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.dll" target="lib\wpa81\Plugin.StoreReview.Abstractions.dll" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.xml" target="lib\wpa81\Plugin.StoreReview.Abstractions.xml" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.pdb" target="lib\wpa81\Plugin.StoreReview.Abstractions.pdb" />
+
+
+     <!--WinStore-->
+     <file src="src\StoreReview.Plugin.WindowsStore\bin\Release\Plugin.StoreReview.dll" target="lib\win8\Plugin.StoreReview.dll" />
+     <file src="src\StoreReview.Plugin.WindowsStore\bin\Release\Plugin.StoreReview.xml" target="lib\win8\Plugin.StoreReview.xml" />
+     <file src="src\StoreReview.Plugin.WindowsStore\bin\Release\Plugin.StoreReview.pdb" target="lib\win8\Plugin.StoreReview.pdb" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.dll" target="lib\win8\Plugin.StoreReview.Abstractions.dll" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.xml" target="lib\win8\Plugin.StoreReview.Abstractions.xml" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.pdb" target="lib\win8\Plugin.StoreReview.Abstractions.pdb" />
+
+
+     <!--Xamarin.Android-->
+     <file src="src\StoreReview.Plugin.Android\bin\Release\Plugin.StoreReview.dll" target="lib\MonoAndroid10\Plugin.StoreReview.dll" />
+     <file src="src\StoreReview.Plugin.Android\bin\Release\Plugin.StoreReview.xml" target="lib\MonoAndroid10\Plugin.StoreReview.xml" />
+     <file src="src\StoreReview.Plugin.Android\bin\Release\Plugin.StoreReview.pdb" target="lib\MonoAndroid10\Plugin.StoreReview.pdb" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.dll" target="lib\MonoAndroid10\Plugin.StoreReview.Abstractions.dll" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.xml" target="lib\MonoAndroid10\Plugin.StoreReview.Abstractions.xml" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.pdb" target="lib\MonoAndroid10\Plugin.StoreReview.Abstractions.pdb" />
+
+     <!--Xamarin.iOS Unified-->
+     <file src="src\StoreReview.Plugin.iOSUnified\bin\iPhone\Release\Plugin.StoreReview.dll" target="lib\Xamarin.iOS10\Plugin.StoreReview.dll" />
+     <file src="src\StoreReview.Plugin.iOSUnified\bin\iPhone\Release\Plugin.StoreReview.xml" target="lib\Xamarin.iOS10\Plugin.StoreReview.xml" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.dll" target="lib\Xamarin.iOS10\Plugin.StoreReview.Abstractions.dll" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.xml" target="lib\Xamarin.iOS10\Plugin.StoreReview.Abstractions.xml" />
+
+ <!--UWP-->
+     <file src="src\StoreReview.Plugin.UWP\bin\Release\Plugin.StoreReview.dll" target="lib\UAP10\Plugin.StoreReview.dll" />
+     <file src="src\StoreReview.Plugin.UWP\bin\Release\Plugin.StoreReview.xml" target="lib\UAP10\Plugin.StoreReview.xml" />
+     <file src="src\StoreReview.Plugin.UWP\bin\Release\Plugin.StoreReview.pdb" target="lib\UAP10\Plugin.StoreReview.pdb" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.dll" target="lib\UAP10\Plugin.StoreReview.Abstractions.dll" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.xml" target="lib\UAP10\Plugin.StoreReview.Abstractions.xml" />
+     <file src="src\StoreReview.Plugin.Abstractions\bin\Release\Plugin.StoreReview.Abstractions.pdb" target="lib\UAP10\Plugin.StoreReview.Abstractions.pdb" />
+
+
+
+   </files>
+</package>
