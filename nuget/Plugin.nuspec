@@ -6,17 +6,17 @@
        <title>Store Review Plugin for Xamarin and Windows</title>
        <authors>James Montemagno</authors>
        <owners>James Montemagno</owners>
-       <licenseUrl>https://github.com/jamesmontemagno/LaunchMapsPlugin/blob/master/LICENSE</licenseUrl>
-       <projectUrl>https://github.com/jamesmontemagno/LaunchMapsPlugin</projectUrl>
-       <iconUrl>http://www.refractored.com/images/external_map_icon.png</iconUrl>
+       <licenseUrl>https://github.com/jamesmontemagno/PluginStoreReview/blob/master/LICENSE</licenseUrl>
+       <projectUrl>https://github.com/jamesmontemagno/PluginStoreReview</projectUrl>
+       <iconUrl>http://www.refractored.com/images/pluginstore.png</iconUrl>
        <requireLicenseAcceptance>false</requireLicenseAcceptance>
        <description>
-       Easily request or open the store review page for your app.
+       Easily request a review or open the store page for your app.
          </description>
       <releaseNotes>
       </releaseNotes>
        <summary>
-       Easily request or open the store review page for your app.
+       Easily request a review or open the store page for your app.
        </summary>
        <tags>xamarin, pcl, xam.pcl, uwp, store review, review, xamarin.forms, ios</tags>
        <dependencies>
