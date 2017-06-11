@@ -8,7 +8,6 @@ namespace Plugin.StoreReview.Abstractions
     /// </summary>
     public interface IStoreReview
     {
-
         void OpenStoreListing(string appId);
         void OpenStoreReviewPage(string appId);
         void RequestReview();
