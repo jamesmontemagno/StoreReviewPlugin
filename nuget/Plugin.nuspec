@@ -19,7 +19,34 @@
        Easily request a review or open the store page for your app.
        </summary>
        <tags>xamarin, pcl, xam.pcl, uwp, store review, review, xamarin.forms, ios</tags>
-       <dependencies>
+       <dependencies> 
+       <group targetFramework="net">
+      </group>
+      <group targetFramework="win">
+      </group>
+      <group targetFramework="wp">
+      </group>
+      <group targetFramework="wpa">
+      </group>
+      <group targetFramework="netstandard1.0">
+        <dependency id="NETStandard.Library" version="1.6.1" />
+      </group>
+      <group targetFramework="MonoAndroid10">
+      </group>
+      <group targetFramework="Xamarin.iOS10">
+      </group>
+      <group targetFramework="Xamarin.Mac20">
+      </group>
+      <group targetFramework="portable-net45+win+wpa81+wp80">
+      </group>
+      <group targetFramework="uap">
+      </group>
+      <group targetFramework="dotnet">
+      </group>
+      <group targetFramework="xamarintvos">
+      </group>
+      <group targetFramework="xamarinwatchos">
+      </group>
        </dependencies>
    </metadata>
    <files>
