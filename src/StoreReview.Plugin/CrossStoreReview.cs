@@ -3,41 +3,42 @@ using System;
 
 namespace Plugin.StoreReview
 {
-  /// <summary>
-  /// Cross platform StoreReview implemenations
-  /// </summary>
-  public class CrossStoreReview
-  {
-    static Lazy<IStoreReview> Implementation = new Lazy<IStoreReview>(() => CreateStoreReview(), System.Threading.LazyThreadSafetyMode.PublicationOnly);
+	/// <summary>
+	/// Cross platform StoreReview implemenations
+	/// </summary>
+	public class CrossStoreReview
+	{
+		static Lazy<IStoreReview> implementation = new Lazy<IStoreReview>(() => CreateStoreReview(), System.Threading.LazyThreadSafetyMode.PublicationOnly);
 
-    /// <summary>
-    /// Current settings to use
-    /// </summary>
-    public static IStoreReview Current
-    {
-      get
-      {
-        var ret = Implementation.Value;
-        if (ret == null)
-        {
-          throw NotImplementedInReferenceAssembly();
-        }
-        return ret;
-      }
-    }
+		/// <summary>
+		/// Current settings to use
+		/// </summary>
+		public static IStoreReview Current
+		{
+			get
+			{
+				var ret = implementation.Value;
+				if (ret == null)
+				{
+					throw NotImplementedInReferenceAssembly();
+				}
+				return ret;
+			}
+		}
 
-    static IStoreReview CreateStoreReview()
-    {
-#if PORTABLE
-        return null;
+		static IStoreReview CreateStoreReview()
+		{
+#if NETSTANDARD1_0
+			return null;
 #else
-        return new StoreReviewImplementation();
+#pragma warning disable IDE0022 // Use expression body for methods
+			return new StoreReviewImplementation();
+#pragma warning restore IDE0022 // Use expression body for methods
 #endif
-    }
+		}
 
-    internal static Exception NotImplementedInReferenceAssembly()
-    {
-      return new NotImplementedException("This functionality is not implemented in the portable version of this assembly.  You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
-    }
-  }
+		internal static Exception NotImplementedInReferenceAssembly() =>
+			new NotImplementedException("This functionality is not implemented in the portable version of this assembly.  You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
+		
+	}
 }

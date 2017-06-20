@@ -3,19 +3,21 @@ using Android.Content;
 using Android.OS;
 using Plugin.StoreReview.Abstractions;
 using System;
-using System.Diagnostics;
 
 namespace Plugin.StoreReview
 {
-    /// <summary>
-    /// Implementation for Feature
-    /// </summary>
-    public class StoreReviewImplementation : IStoreReview
+	/// <summary>
+	/// Implementation for Feature
+	/// </summary>
+	public class StoreReviewImplementation : IStoreReview
     {
-        public void OpenStoreListing(string appId)
-        {
-            OpenStoreReviewPage(appId);
-        }
+        /// <summary>
+        /// Opens the store listing.
+        /// </summary>
+        /// <param name="appId">App identifier.</param>
+        public void OpenStoreListing(string appId) => 
+			OpenStoreReviewPage(appId);
+        
 
         Intent GetRateIntent(string url)
         {
@@ -35,6 +37,10 @@ namespace Plugin.StoreReview
             return intent;
         }
 
+        /// <summary>
+        /// Opens the store review page.
+        /// </summary>
+        /// <param name="appId">App identifier.</param>
         public void OpenStoreReviewPage(string appId)
         {
             var url = $"market://details?id={appId}";
@@ -60,7 +66,9 @@ namespace Plugin.StoreReview
                 System.Diagnostics.Debug.WriteLine("Unable to launch app store: " + ex.Message);
             }
         }
-
+        /// <summary>
+        /// Requests an app review.
+        /// </summary>
         public void RequestReview()
         {
         }

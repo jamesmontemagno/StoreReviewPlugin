@@ -12,12 +12,12 @@ namespace Plugin.StoreReview
     /// <summary>
     /// Implementation for StoreReview
     /// </summary>
-    /// <summary>
-    /// Implementation for Feature
-    /// </summary>
     public class StoreReviewImplementation : IStoreReview
     {
-     
+        /// <summary>
+        /// Opens the store listing.
+        /// </summary>
+        /// <param name="appId">App identifier.</param>
         public void OpenStoreListing(string appId)
         {
             var url = $"itms-apps://itunes.apple.com/app/id{appId}";
@@ -31,6 +31,10 @@ namespace Plugin.StoreReview
             }
         }
 
+        /// <summary>
+        /// Opens the store review page.
+        /// </summary>
+        /// <param name="appId">App identifier.</param>
         public void OpenStoreReviewPage(string appId)
         {
             var url = $"itms-apps://itunes.apple.com/app/id{appId}?action=write-review";
@@ -44,6 +48,9 @@ namespace Plugin.StoreReview
             }
         }
 
+        /// <summary>
+        /// Requests an app review.
+        /// </summary>
         public void RequestReview()
         {
             if (IsiOS103)

@@ -6,6 +6,7 @@
 | ------------------- | :------------------: |
 |Xamarin.iOS|iOS 7+|
 |Xamarin.Android|API 10+|
+|UWP|API 10+|
 
 
 ### API
@@ -14,6 +15,7 @@
 This will open the related app store for your app identifier.
 iOS: This is found on your iTunes connect page for your app
 Android: This is your package Id from your Android Manifest.
+UWP:  This is the Store ID: You can find the link to your app's Store listing on the App identity page, in the App management section of each app in your dashboard.
 
 ```csharp
 /// <summary>

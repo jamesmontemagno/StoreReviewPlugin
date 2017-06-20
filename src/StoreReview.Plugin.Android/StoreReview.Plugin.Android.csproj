@@ -57,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StoreReview.Plugin.Abstractions\StoreReview.Plugin.Abstractions.csproj">
-      <Project>{6edb0588-ffc5-4ef5-8a99-9e241d0f878d}</Project>
+      <Project>{0641d1b5-3354-40bd-849c-9e4744d367b4}</Project>
       <Name>StoreReview.Plugin.Abstractions</Name>
     </ProjectReference>
   </ItemGroup>
