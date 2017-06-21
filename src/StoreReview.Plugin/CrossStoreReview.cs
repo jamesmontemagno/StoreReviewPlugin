@@ -11,7 +11,12 @@ namespace Plugin.StoreReview
 		static Lazy<IStoreReview> implementation = new Lazy<IStoreReview>(() => CreateStoreReview(), System.Threading.LazyThreadSafetyMode.PublicationOnly);
 
 		/// <summary>
-		/// Current settings to use
+		/// Gets if the plugin is supported on the current platform.
+		/// </summary>
+		public static bool IsSupported => implementation.Value == null ? false : true;
+
+		/// <summary>
+		/// Current plugin implementation to use
 		/// </summary>
 		public static IStoreReview Current
 		{
