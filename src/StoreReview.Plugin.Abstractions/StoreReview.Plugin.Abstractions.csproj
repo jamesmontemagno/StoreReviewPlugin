@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
-    <AssemblyName>StoreReview.Plugin.Abstractions</AssemblyName>
-    <RootNamespace>StoreReview.Plugin.Abstractions</RootNamespace>
+    <AssemblyName>Plugin.StoreReview.Abstractions</AssemblyName>
+    <RootNamespace>Plugin.StoreReview.Abstractions</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard1.0\StoreReview.Plugin.Abstractions.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard1.0\Plugin.StoreReview.Abstractions.xml</DocumentationFile>
   </PropertyGroup>
 
 </Project>

@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
-    <AssemblyName>StoreReview.Plugin</AssemblyName>
-    <RootNamespace>StoreReview.Plugin</RootNamespace>
+    <AssemblyName>Plugin.StoreReview</AssemblyName>
+    <RootNamespace>Plugin.StoreReview</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard1.0\StoreReview.Plugin.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard1.0\Plugin.StoreReview.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
