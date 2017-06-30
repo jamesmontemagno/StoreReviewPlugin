@@ -33,8 +33,9 @@ namespace Plugin.StoreReview
             {
                 intent.AddFlags(ActivityFlags.ClearWhenTaskReset);
             }
-
-            return intent;
+			intent.SetFlags(ActivityFlags.ClearTop);
+			intent.SetFlags(ActivityFlags.NewTask);
+			return intent;
         }
 
         /// <summary>
