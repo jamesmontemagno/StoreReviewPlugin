@@ -1,6 +1,7 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Runtime;
 using Plugin.StoreReview.Abstractions;
 using System;
 
@@ -9,6 +10,7 @@ namespace Plugin.StoreReview
 	/// <summary>
 	/// Implementation for Feature
 	/// </summary>
+	[Preserve(AllMembers = true)]
 	public class StoreReviewImplementation : IStoreReview
     {
         /// <summary>

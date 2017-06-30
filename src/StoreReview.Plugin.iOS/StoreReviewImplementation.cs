@@ -9,10 +9,11 @@ using StoreKit;
 
 namespace Plugin.StoreReview
 {
-    /// <summary>
-    /// Implementation for StoreReview
-    /// </summary>
-    public class StoreReviewImplementation : IStoreReview
+	/// <summary>
+	/// Implementation for StoreReview
+	/// </summary>
+	[Preserve(AllMembers = true)]
+	public class StoreReviewImplementation : IStoreReview
     {
         /// <summary>
         /// Opens the store listing.
