@@ -21,8 +21,12 @@ namespace Plugin.StoreReview
         /// <param name="appId">App identifier.</param>
         public void OpenStoreListing(string appId)
         {
-            var url = $"itms-apps://itunes.apple.com/app/id{appId}";
-            try
+#if __IOS__
+			var url = $"itms-apps://itunes.apple.com/app/id{appId}";
+#elif __TVOS__
+			var url = $"com.apple.TVAppStore://itunes.apple.com/app/id{appId}";
+#endif
+			try
             {
                 UIApplication.SharedApplication.OpenUrl(new NSUrl(url));
             }
@@ -38,9 +42,13 @@ namespace Plugin.StoreReview
         /// <param name="appId">App identifier.</param>
         public void OpenStoreReviewPage(string appId)
         {
+#if __IOS__
             var url = $"itms-apps://itunes.apple.com/app/id{appId}?action=write-review";
-            try
-            {
+#elif __TVOS__
+			var url = $"com.apple.TVAppStore://itunes.apple.com/app/id{appId}?action=write-review";
+#endif
+			try
+			{
                 UIApplication.SharedApplication.OpenUrl(new NSUrl(url));
             }
             catch (Exception ex)
@@ -54,15 +62,16 @@ namespace Plugin.StoreReview
         /// </summary>
         public void RequestReview()
         {
+#if __IOS__
             if (IsiOS103)
             {
                 SKStoreReviewController.RequestReview();
             }
+#endif
         }
 
         bool IsiOS103 => UIDevice.CurrentDevice.CheckSystemVersion(10, 3);
-        bool IsiOS8 => UIDevice.CurrentDevice.CheckSystemVersion(8, 0);
-        bool IsiOS7 => UIDevice.CurrentDevice.CheckSystemVersion(7, 0);
+    
 
     }
 }

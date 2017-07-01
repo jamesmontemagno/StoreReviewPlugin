@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreReview.Plugin.iOS", "StoreReview.Plugin.iOS\StoreReview.Plugin.iOS.csproj", "{2882AEEB-D4CD-4EB9-8A6C-6653B33681F0}"
 EndProject
@@ -18,9 +18,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreReview.Plugin.UWP", "StoreReview.Plugin.UWP\StoreReview.Plugin.UWP.csproj", "{80C1A1D7-C26F-473E-B90D-CA697189B4C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreReview.Plugin", "StoreReview.Plugin\StoreReview.Plugin.csproj", "{82693485-943A-43E0-BB62-84A32A261065}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreReview.Plugin", "StoreReview.Plugin\StoreReview.Plugin.csproj", "{82693485-943A-43E0-BB62-84A32A261065}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreReview.Plugin.Abstractions", "StoreReview.Plugin.Abstractions\StoreReview.Plugin.Abstractions.csproj", "{0641D1B5-3354-40BD-849C-9E4744D367B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreReview.Plugin.Abstractions", "StoreReview.Plugin.Abstractions\StoreReview.Plugin.Abstractions.csproj", "{0641D1B5-3354-40BD-849C-9E4744D367B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreReview.Plugin.tvOS", "StoreReview.Plugin.tvOS\StoreReview.Plugin.tvOS.csproj", "{A0CA9D68-85FC-4BCE-A7F1-11CBB4195E41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -102,6 +104,22 @@ Global
 		{0641D1B5-3354-40BD-849C-9E4744D367B4}.Release|x64.Build.0 = Release|Any CPU
 		{0641D1B5-3354-40BD-849C-9E4744D367B4}.Release|x86.ActiveCfg = Release|Any CPU
 		{0641D1B5-3354-40BD-849C-9E4744D367B4}.Release|x86.Build.0 = Release|Any CPU
+		{A0CA9D68-85FC-4BCE-A7F1-11CBB4195E41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0CA9D68-85FC-4BCE-A7F1-11CBB4195E41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0CA9D68-85FC-4BCE-A7F1-11CBB4195E41}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{A0CA9D68-85FC-4BCE-A7F1-11CBB4195E41}.Debug|ARM.Build.0 = Debug|Any CPU
+		{A0CA9D68-85FC-4BCE-A7F1-11CBB4195E41}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A0CA9D68-85FC-4BCE-A7F1-11CBB4195E41}.Debug|x64.Build.0 = Debug|Any CPU
+		{A0CA9D68-85FC-4BCE-A7F1-11CBB4195E41}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A0CA9D68-85FC-4BCE-A7F1-11CBB4195E41}.Debug|x86.Build.0 = Debug|Any CPU
+		{A0CA9D68-85FC-4BCE-A7F1-11CBB4195E41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0CA9D68-85FC-4BCE-A7F1-11CBB4195E41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0CA9D68-85FC-4BCE-A7F1-11CBB4195E41}.Release|ARM.ActiveCfg = Release|Any CPU
+		{A0CA9D68-85FC-4BCE-A7F1-11CBB4195E41}.Release|ARM.Build.0 = Release|Any CPU
+		{A0CA9D68-85FC-4BCE-A7F1-11CBB4195E41}.Release|x64.ActiveCfg = Release|Any CPU
+		{A0CA9D68-85FC-4BCE-A7F1-11CBB4195E41}.Release|x64.Build.0 = Release|Any CPU
+		{A0CA9D68-85FC-4BCE-A7F1-11CBB4195E41}.Release|x86.ActiveCfg = Release|Any CPU
+		{A0CA9D68-85FC-4BCE-A7F1-11CBB4195E41}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

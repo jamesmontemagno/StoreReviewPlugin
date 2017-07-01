@@ -61,6 +61,9 @@
     <!--Xamarin.iOS-->
     <file src="src\StoreReview.Plugin.iOS\bin\iPhone\Release\Plugin.StoreReview.*" target="lib\Xamarin.iOS10" />
 
+    <!--Xamarin.iOS-->
+    <file src="src\StoreReview.Plugin.tvOS\bin\Release\Plugin.StoreReview.*" target="lib\xamarintvos" />
+
     <!--UWP-->
     <file src="src\StoreReview.Plugin.UWP\bin\Release\Plugin.StoreReview.*" target="lib\UAP10" />
 
