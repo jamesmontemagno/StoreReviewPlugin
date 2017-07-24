@@ -6,8 +6,8 @@
     <title>Store Review Plugin for Xamarin and Windows</title>
     <authors>James Montemagno</authors>
     <owners>James Montemagno</owners>
-    <licenseUrl>https://github.com/jamesmontemagno/PluginStoreReview/blob/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/jamesmontemagno/PluginStoreReview</projectUrl>
+    <licenseUrl>https://github.com/jamesmontemagno/StoreReviewPlugin/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/jamesmontemagno/StoreReviewPlugin</projectUrl>
     <iconUrl>http://www.refractored.com/images/pluginstore.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
