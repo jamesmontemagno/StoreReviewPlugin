@@ -1,6 +1,10 @@
 using Plugin.StoreReview.Abstractions;
 using System;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
+using Windows.Foundation;
+using Windows.Services.Store;
 
 namespace Plugin.StoreReview
 {
@@ -23,14 +27,12 @@ namespace Plugin.StoreReview
         public void OpenStoreReviewPage(string appId) =>
             OpenUrl($"ms-windows-store://review/?ProductId={appId}");
 
-        /// <summary>
-        /// Requests an app review.
-        /// </summary>
-        public void RequestReview()
-        {
-        }
+		/// <summary>
+		/// Requests an app review.
+		/// </summary>
+		public void RequestReview() => StoreRequestHelper.SendRequestAsync(StoreContext.GetDefault(), 16, string.Empty).WatchForError();
 
-        void OpenUrl(string url)
+		void OpenUrl(string url)
         {
             try
             {
@@ -46,4 +48,30 @@ namespace Plugin.StoreReview
             }
         }
     }
+
+	internal static partial class PlatformExtensions
+	{
+		internal static void WatchForError(this IAsyncAction self) =>
+			self.AsTask().WatchForError();
+
+		internal static void WatchForError<T>(this IAsyncOperation<T> self) =>
+			self.AsTask().WatchForError();
+
+		internal static void WatchForError(this Task self)
+		{
+			var context = SynchronizationContext.Current;
+			if (context == null)
+				return;
+
+			self.ContinueWith(
+				t =>
+				{
+					var exception = t.Exception.InnerExceptions.Count > 1 ? t.Exception : t.Exception.InnerException;
+
+					context.Post(e => { throw (Exception)e; }, exception);
+				}, CancellationToken.None,
+				TaskContinuationOptions.OnlyOnFaulted,
+				TaskScheduler.Default);
+		}
+	}
 }

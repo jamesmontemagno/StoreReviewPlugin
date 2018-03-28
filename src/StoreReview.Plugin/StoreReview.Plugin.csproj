@@ -1,20 +1,74 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.0</TargetFramework>
+    <TargetFrameworks>netstandard1.0;netstandard2.0;MonoAndroid71;Xamarin.iOS10;uap10.0.15063;Xamarin.TVOS10;</TargetFrameworks>
     <AssemblyName>Plugin.StoreReview</AssemblyName>
     <RootNamespace>Plugin.StoreReview</RootNamespace>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
     <Version>1.0.0.0</Version>
-  </PropertyGroup>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <Authors>James Montemagno</Authors>
+    <PackageId>Plugin.StoreReview</PackageId>
+    <PackOnBuild>true</PackOnBuild>
+    <PackageIconUrl>http://www.refractored.com/images/pluginstore.png</PackageIconUrl>
+    <PackageLicenseUrl>https://github.com/jamesmontemagno/StoreReviewPlugin/blob/master/LICENSE</PackageLicenseUrl>
+    <Owners>JamesMontemagno</Owners>
+    <PackageProjectUrl>https://github.com/jamesmontemagno/StoreReviewPlugin</PackageProjectUrl>
+    <Summary>Easily request a review or open the store page for your app.</Summary>
+    <PackageTags>
+      xamarin, pcl, xam.pcl, uwp, store review, review, xamarin.forms, ios</PackageTags>
+    <Title>Store Review Plugin for Xamarin and Windows</Title>
+    <Description>
+      Easily request a review or open the store page for your app.
+    </Description>
+    <Copyright>Copyright 2018</Copyright>
+    <RepositoryUrl>https://github.com/jamesmontemagno/StoreReviewPlugin</RepositoryUrl>
+    <PackageReleaseNotes>See: https://github.com/jamesmontemagno/StoreReviewPlugin </PackageReleaseNotes>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard1.0\Plugin.StoreReview.xml</DocumentationFile>
+    <NeutralLanguage>en</NeutralLanguage>
+    <LangVersion>default</LangVersion>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+
+
+    <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release' ">true</GenerateDocumentationFile>
+
+    <DebugType>full</DebugType>
+
+    <DefineConstants>$(DefineConstants);</DefineConstants>
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StoreReview.Plugin.Abstractions\StoreReview.Plugin.Abstractions.csproj" />
+    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.2.0" PrivateAssets="All" />
+    <Compile Include="**\*.shared.cs" />
   </ItemGroup>
+
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.2.3" />
+    <Compile Include="**\*.uwp.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
+    <Compile Include="**\*.android.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
+    <Compile Include="**\*.apple.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.TVOS')) ">
+    <Compile Include="**\*.apple.cs" />
+  </ItemGroup>
+
+
+
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+
 
 </Project>

@@ -10,6 +10,12 @@
 |UWP|API 10+|
 
 
+### Build Status
+![](https://jamesmontemagno.visualstudio.com/_apis/public/build/definitions/6b79a378-ddd6-4e31-98ac-a12fcd68644c/12/badge)
+
+### NuGet
+https://www.nuget.org/packages/Plugin.StoreReview/
+
 ### API
 
 #### Open store listing
@@ -38,7 +44,7 @@ void OpenStoreReviewPage(string appId);
 ```
 
 #### Request Review
-iOS only to prompt for the user to review the app. Only on iOS 10.3+ devices:
+UWP (all versions) and iOS only to prompt for the user to review the app. Only on iOS 10.3+ devices:
 Read: https://blog.xamarin.com/requesting-reviews-ios-10-3s-skstorereviewcontroller/
 
 ```csharp
