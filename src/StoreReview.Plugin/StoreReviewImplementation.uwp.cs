@@ -30,7 +30,7 @@ namespace Plugin.StoreReview
 		/// <summary>
 		/// Requests an app review.
 		/// </summary>
-		public void RequestReview() => StoreRequestHelper.SendRequestAsync(StoreContext.GetDefault(), 16, string.Empty).WatchForError();
+		public async Task RequestReview(bool testMode) => _ = await StoreRequestHelper.SendRequestAsync(StoreContext.GetDefault(), 16, string.Empty).AsTask();
 
 		void OpenUrl(string url)
         {
@@ -49,7 +49,7 @@ namespace Plugin.StoreReview
         }
     }
 
-	internal static partial class PlatformExtensions
+	static partial class PlatformExtensions
 	{
 		internal static void WatchForError(this IAsyncAction self) =>
 			self.AsTask().WatchForError();

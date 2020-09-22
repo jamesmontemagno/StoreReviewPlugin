@@ -1,4 +1,6 @@
-﻿namespace Plugin.StoreReview.Abstractions
+﻿using System.Threading.Tasks;
+
+namespace Plugin.StoreReview.Abstractions
 {
 	/// <summary>
 	/// Interface for StoreReview
@@ -20,6 +22,6 @@
         /// <summary>
         /// Requests an app review.
         /// </summary>
-        void RequestReview();
+        Task RequestReview(bool testMode);
     }
 }
