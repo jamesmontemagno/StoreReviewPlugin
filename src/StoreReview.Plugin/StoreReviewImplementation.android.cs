@@ -2,8 +2,13 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Com.Google.Android.Play.Core.Review;
+using Com.Google.Android.Play.Core.Review.Testing;
+using Com.Google.Android.Play.Core.Tasks;
 using Plugin.StoreReview.Abstractions;
 using System;
+using System.Threading.Tasks;
+using Task = System.Threading.Tasks.Task;
 
 namespace Plugin.StoreReview
 {
@@ -11,7 +16,7 @@ namespace Plugin.StoreReview
 	/// Implementation for Feature
 	/// </summary>
 	[Preserve(AllMembers = true)]
-	public class StoreReviewImplementation : IStoreReview
+	public class StoreReviewImplementation : Java.Lang.Object, IStoreReview, IOnCompleteListener
     {
         /// <summary>
         /// Opens the store listing.
@@ -69,11 +74,56 @@ namespace Plugin.StoreReview
                 System.Diagnostics.Debug.WriteLine("Unable to launch app store: " + ex.Message);
             }
         }
-        /// <summary>
-        /// Requests an app review.
-        /// </summary>
-        public void RequestReview()
-        {
+
+		IReviewManager manager;
+		TaskCompletionSource<bool> tcs;
+		/// <summary>
+		/// Requests an app review.
+		/// </summary>
+		public async Task RequestReview(bool testMode)
+		{
+			tcs?.TrySetCanceled();
+			tcs = new TaskCompletionSource<bool>();
+
+			if (testMode)
+				manager = new FakeReviewManager(Application.Context);
+			else
+				manager = ReviewManagerFactory.Create(Application.Context);
+
+            forceReturn = false;
+			var request = manager.RequestReviewFlow();
+			request.AddOnCompleteListener(this);
+			await tcs.Task;
+			manager.Dispose();
+            request.Dispose();
         }
-    }
+
+		Activity Activity =>
+			Xamarin.Essentials.Platform.CurrentActivity ?? throw new NullReferenceException("Current Activity is null, ensure that the MainActivity.cs file is configuring Xamarin.Essentials in your source code so the In App Billing can use it.");
+
+		bool forceReturn;
+        Com.Google.Android.Play.Core.Tasks.Task launchTask;
+        public void OnComplete(Com.Google.Android.Play.Core.Tasks.Task task)
+		{
+			if (!task.IsSuccessful || forceReturn)
+			{
+				tcs.TrySetResult(forceReturn);
+                launchTask?.Dispose();
+                return;
+			}
+
+			try
+			{
+				var reviewInfo = (ReviewInfo)task.GetResult(Java.Lang.Class.FromType(typeof(ReviewInfo)));
+				forceReturn = true;
+                launchTask = manager.LaunchReviewFlow(Activity, reviewInfo);
+                launchTask.AddOnCompleteListener(this);
+			}
+			catch (Exception ex)
+			{
+				tcs.TrySetResult(false);
+				System.Diagnostics.Debug.WriteLine(ex.Message);
+			}
+		}
+	}
 }

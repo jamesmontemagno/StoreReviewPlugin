@@ -4,7 +4,9 @@ using Plugin.StoreReview.Abstractions;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+#if !__MACOS__
 using UIKit;
+#endif
 using StoreKit;
 
 namespace Plugin.StoreReview
@@ -25,12 +27,18 @@ namespace Plugin.StoreReview
 			var url = $"itms-apps://itunes.apple.com/app/id{appId}";
 #elif __TVOS__
 			var url = $"com.apple.TVAppStore://itunes.apple.com/app/id{appId}";
+#elif __MACOS__
+			var url = $"macappstore://itunes.apple.com/app/id{appId}?mt=12";
 #endif
 			try
             {
-                UIApplication.SharedApplication.OpenUrl(new NSUrl(url));
-            }
-            catch (Exception ex)
+#if __MACOS__
+				AppKit.NSWorkspace.SharedWorkspace.OpenUrl(new NSUrl(url));
+#else
+				UIApplication.SharedApplication.OpenUrl(new NSUrl(url));
+#endif
+			}
+			catch (Exception ex)
             {
                 Debug.WriteLine("Unable to launch app store: " + ex.Message);
             }
@@ -46,10 +54,16 @@ namespace Plugin.StoreReview
             var url = $"itms-apps://itunes.apple.com/app/id{appId}?action=write-review";
 #elif __TVOS__
 			var url = $"com.apple.TVAppStore://itunes.apple.com/app/id{appId}?action=write-review";
+#elif __MACOS__
+			var url = $"macappstore://itunes.apple.com/app/id{appId}?action=write-review";
 #endif
 			try
 			{
-                UIApplication.SharedApplication.OpenUrl(new NSUrl(url));
+#if __MACOS__
+				AppKit.NSWorkspace.SharedWorkspace.OpenUrl(new NSUrl(url));
+#else
+				UIApplication.SharedApplication.OpenUrl(new NSUrl(url));
+#endif
             }
             catch (Exception ex)
             {
@@ -60,18 +74,38 @@ namespace Plugin.StoreReview
         /// <summary>
         /// Requests an app review.
         /// </summary>
-        public void RequestReview()
-        {
+        public Task RequestReview(bool testMode)
+		{
 #if __IOS__
             if (IsiOS103)
             {
                 SKStoreReviewController.RequestReview();
             }
+#elif __MACOS__
+			using var info = new NSProcessInfo();
+			if (ParseVersion(info.OperatingSystemVersion.ToString()) >= new Version(10, 14))
+			{
+				SKStoreReviewController.RequestReview();
+			}
 #endif
-        }
 
-        bool IsiOS103 => UIDevice.CurrentDevice.CheckSystemVersion(10, 3);
-    
+			return Task.CompletedTask;
+		}
 
-    }
+		internal static Version ParseVersion(string version)
+		{
+			if (Version.TryParse(version, out var number))
+				return number;
+
+			if (int.TryParse(version, out var major))
+				return new Version(major, 0);
+
+			return new Version(0, 0);
+		}
+
+#if __IOS__
+		bool IsiOS103 => UIDevice.CurrentDevice.CheckSystemVersion(10, 3);
+#endif
+
+	}
 }
