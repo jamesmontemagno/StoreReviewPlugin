@@ -11,7 +11,7 @@
 
 
 ### Build Status
-![](https://jamesmontemagno.visualstudio.com/_apis/public/build/definitions/6b79a378-ddd6-4e31-98ac-a12fcd68644c/12/badge)
+![](https://jamesmontemagno.visualstudio.com/_apis/public/build/definitions/6b79a378-ddd6-4e31-98ac-a12fcd68644c/12/badge?WT.mc_id=storereviewplugin-github-jamont)
 
 ### NuGet
 https://www.nuget.org/packages/Plugin.StoreReview/
