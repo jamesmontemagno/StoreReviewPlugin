@@ -44,7 +44,7 @@ void OpenStoreReviewPage(string appId);
 ```
 
 #### Request Review
-UWP (all versions) and iOS only to prompt for the user to review the app. Only on iOS 10.3+ devices:
+UWP (all versions), Android and iOS only to prompt for the user to review the app. Only on Android 5.0 (API level 21) & iOS 10.3+ devices:
 Read: https://blog.xamarin.com/requesting-reviews-ios-10-3s-skstorereviewcontroller/
 
 ```csharp
@@ -53,6 +53,21 @@ Read: https://blog.xamarin.com/requesting-reviews-ios-10-3s-skstorereviewcontrol
 /// </summary>
 void RequestReview();
 ```
+
+### Android code shrinker (Proguard & r8)
+
+If you use the plugin with Link all, Release Mode and ProGuard/r8 enabled, you have to do the following:
+
+1. Create a `proguard.txt` file in your android project and add the following:
+
+```
+    -keep class com.google.android.play.core.common.PlayCoreDialogWrapperActivity
+    -keep class com.google.android.play.core.review.** { *; }
+    -keep class com.google.android.play.core.tasks.** { *; }
+```
+
+2. Include it to your project
+3. Properties > Build Action > ProguardConfiguration
 
 #### License
 Under MIT, see LICENSE file.
