@@ -54,6 +54,13 @@ Read: https://blog.xamarin.com/requesting-reviews-ios-10-3s-skstorereviewcontrol
 void RequestReview();
 ```
 
+### Android setup
+
+You need to add the following line to your OnCreate method in the main activity class:
+```csharp
+Xamarin.Essentials.Platform.Init(this, bundle);
+```
+
 ### Android code shrinker (Proguard & r8)
 
 If you use the plugin with Link all, Release Mode and ProGuard/r8 enabled, you have to do the following:
