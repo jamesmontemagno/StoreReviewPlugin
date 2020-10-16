@@ -61,6 +61,18 @@ You need to add the following line to your OnCreate method in the main activity 
 Xamarin.Essentials.Platform.Init(this, bundle);
 ```
 
+It should look like this:
+```csharp
+protected override void OnCreate(Bundle savedInstanceState)
+{
+	// Rest of method omitted for simplicity
+	
+	Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+	global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+	LoadApplication(new App());
+}
+```
+
 ### Android code shrinker (Proguard & r8)
 
 If you use the plugin with Link all, Release Mode and ProGuard/r8 enabled, you have to do the following:
