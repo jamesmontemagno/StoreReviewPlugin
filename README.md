@@ -54,6 +54,10 @@ Read: https://blog.xamarin.com/requesting-reviews-ios-10-3s-skstorereviewcontrol
 void RequestReview();
 ```
 
+### Android setup
+
+Ensure that you follow the [Xamarin.Essentials setup steps](https://docs.microsoft.com/xamarin/essentials/get-started?WT.mc_id=docs-github-jamont).
+
 ### Android code shrinker (Proguard & r8)
 
 If you use the plugin with Link all, Release Mode and ProGuard/r8 enabled, you have to do the following:
