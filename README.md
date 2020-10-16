@@ -56,22 +56,7 @@ void RequestReview();
 
 ### Android setup
 
-You need to add the following line to your OnCreate method in the main activity class:
-```csharp
-Xamarin.Essentials.Platform.Init(this, bundle);
-```
-
-It should look like this:
-```csharp
-protected override void OnCreate(Bundle savedInstanceState)
-{
-	// Rest of method omitted for simplicity
-	
-	Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-	global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-	LoadApplication(new App());
-}
-```
+Ensure that you follow the [Xamarin.Essentials setup steps](https://docs.microsoft.com/xamarin/essentials/get-started?WT.mc_id=docs-github-jamont).
 
 ### Android code shrinker (Proguard & r8)
 
