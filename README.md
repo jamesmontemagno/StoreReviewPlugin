@@ -8,6 +8,7 @@
 |Xamarin.tvOS|All|
 |Xamarin.Android|API 10+|
 |UWP|API 10+|
+|macOS|All|
 
 
 ### Build Status
