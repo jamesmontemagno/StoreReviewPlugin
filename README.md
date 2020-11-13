@@ -57,7 +57,7 @@ void RequestReview();
 
 ### Android setup
 
-Ensure that you follow the [Xamarin.Essentials setup steps](https://docs.microsoft.com/xamarin/essentials/get-started?WT.mc_id=docs-github-jamont).
+Ensure that you follow the [Xamarin.Essentials setup steps](https://docs.microsoft.com/xamarin/essentials/get-started?WT.mc_id=friends-0000-jamont).
 
 ### Android code shrinker (Proguard & r8)
 
