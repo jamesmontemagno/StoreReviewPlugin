@@ -46,7 +46,7 @@ void OpenStoreReviewPage(string appId);
 
 #### Request Review
 UWP (all versions), Android and iOS only to prompt for the user to review the app. Only on Android 5.0 (API level 21) & iOS 10.3+ devices:
-Read: https://blog.xamarin.com/requesting-reviews-ios-10-3s-skstorereviewcontroller/
+Read: https://devblogs.microsoft.com/xamarin/requesting-reviews-ios-10-3s-skstorereviewcontroller/?WT.mc_id=friends-0000-jamont
 
 ```csharp
 /// <summary>
@@ -57,7 +57,7 @@ void RequestReview();
 
 ### Android setup
 
-Ensure that you follow the [Xamarin.Essentials setup steps](https://docs.microsoft.com/xamarin/essentials/get-started?WT.mc_id=docs-github-jamont).
+Ensure that you follow the [Xamarin.Essentials setup steps](https://docs.microsoft.com/xamarin/essentials/get-started?WT.mc_id=friends-0000-jamont).
 
 ### Android code shrinker (Proguard & r8)
 
