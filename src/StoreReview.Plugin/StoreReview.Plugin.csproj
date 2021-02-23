@@ -11,7 +11,7 @@
     <Authors>James Montemagno</Authors>
     <PackageId>Plugin.StoreReview</PackageId>
     <PackOnBuild>true</PackOnBuild>
-    <PackageIconUrl>http://www.refractored.com/images/pluginstore.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/jamesmontemagno/StoreReviewPlugin/master/icon.png</PackageIconUrl>
     <PackageLicenseUrl>https://github.com/jamesmontemagno/StoreReviewPlugin/blob/master/LICENSE</PackageLicenseUrl>
     <Owners>JamesMontemagno</Owners>
     <PackageProjectUrl>https://github.com/jamesmontemagno/StoreReviewPlugin</PackageProjectUrl>
@@ -22,7 +22,7 @@
     <Description>
       Easily request a review or open the store page for your app.
     </Description>
-    <Copyright>Copyright 2020</Copyright>
+    <Copyright>Copyright Refractored LLC</Copyright>
     <RepositoryUrl>https://github.com/jamesmontemagno/StoreReviewPlugin</RepositoryUrl>
     <PackageReleaseNotes>See: https://github.com/jamesmontemagno/StoreReviewPlugin </PackageReleaseNotes>
 
