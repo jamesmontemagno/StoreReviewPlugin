@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/2.1.2">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.0;netstandard2.0;MonoAndroid10.0;Xamarin.Mac20;Xamarin.iOS10;uap10.0.16299;Xamarin.TVOS10;</TargetFrameworks>
+    <TargetFrameworks>netstandard1.0;netstandard2.0;MonoAndroid11.0;Xamarin.Mac20;Xamarin.iOS10;uap10.0.16299;Xamarin.TVOS10;</TargetFrameworks>
     <AssemblyName>Plugin.StoreReview</AssemblyName>
     <RootNamespace>Plugin.StoreReview</RootNamespace>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
