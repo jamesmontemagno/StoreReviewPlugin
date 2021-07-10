@@ -4,7 +4,7 @@
 
 |Platform|Version|
 | ------------------- | :------------------: |
-|Xamarin.iOS|iOS 7+|
+|Xamarin.iOS|iOS 10.3+|
 |Xamarin.tvOS|All|
 |Xamarin.Android|API 21+|
 |UWP|API 10+|
