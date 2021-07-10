@@ -93,7 +93,7 @@ If you use the plugin with `Link SDK assemblies only`/`Link all`, you have to do
 * Occasionally, some devices may not show the popup at all as [seen here](https://github.com/jamesmontemagno/StoreReviewPlugin/pull/27#issuecomment-877410136). One way to test whether your device is affected by it, is by downloading [this game that uses v3.1 of this nuget, target SDK version 30, target framework v11.0](https://play.google.com/store/apps/details?id=com.tfp.numberbomb) and win the game once to see the popup. Additionally, you can debug the error using adb locat, as you can [see here](https://github.com/jamesmontemagno/StoreReviewPlugin/issues/26#issue-940942211)
 * The [most common issue/crash type](https://github.com/jamesmontemagno/StoreReviewPlugin/issues/20) is that developers release the app in the release configuration but they only test in the debug configuration. They do not realize that they have set Linker behavior to `Link SDK assemblies only`/`Link all`, and did not follow the proguard steps mentioned above
 
-### Screenshot
+### Screenshots
 
 iOS & Android screenshots of the In-App Review
 ![image](https://user-images.githubusercontent.com/8262287/125174654-ed71ce00-e194-11eb-918a-d5931108d263.png)
