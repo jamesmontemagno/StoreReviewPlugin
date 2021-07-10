@@ -6,7 +6,7 @@
 | ------------------- | :------------------: |
 |Xamarin.iOS|iOS 7+|
 |Xamarin.tvOS|All|
-|Xamarin.Android|API 10+|
+|Xamarin.Android|API 21+|
 |UWP|API 10+|
 |macOS|All|
 
