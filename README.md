@@ -84,14 +84,14 @@ If you use the plugin with `Link SDK assemblies only`/`Link all`, you have to do
 #### iOS
 
 * You cannot submit a review on iOS while developing, but the review popup dialog displays in your simulator/device.
-* However, when you download the app from Testflight, the popup dialog does not display at all, as (mentioned here)[https://developer.apple.com/documentation/storekit/skstorereviewcontroller/2851536-requestreview]:
+* However, when you download the app from Testflight, the popup dialog does not display at all, as [mentioned here](https://developer.apple.com/documentation/storekit/skstorereviewcontroller/2851536-requestreview):
 > When you call this method while your app is still in development mode, a rating/review request view is always displayed so that you can test the user interface and experience. However, this method has no effect when you call it in an app that you distribute using TestFlight."
 
 #### Android
 
-* Unlike iOS, you cannot see the review popup dialog while developing or if you distribute it manually. As you can (see here)[https://developer.android.com/guide/playcore/in-app-review/test], you have to download the app from the Play Store to see the popup. I recommend using Android Play Store's (“Internal App Sharing”)[https://play.google.com/console/about/internalappsharing/] feature to test.
-* Occasionally, some devices may not show the popup at all as (seen here)[https://github.com/jamesmontemagno/StoreReviewPlugin/pull/27#issuecomment-877410136]. One way to test whether your device is affected by it, is by downloading (this game that uses v3.1 of this nuget, target SDK version 30, target framework v11.0)[https://play.google.com/store/apps/details?id=com.tfp.numberbomb] and win the game once to see the popup. Additionally, you can debug the error using adb locat, as you can (see here)[https://github.com/jamesmontemagno/StoreReviewPlugin/issues/26#issue-940942211]
-* The (most common issue/crash type)[https://github.com/jamesmontemagno/StoreReviewPlugin/issues/20] is that developers release the app in the release configuration but they only test in the debug configuration. They do not realize that they have set Linker behavior to `Link SDK assemblies only`/`Link all`, and did not follow the proguard steps mentioned above
+* Unlike iOS, you cannot see the review popup dialog while developing or if you distribute it manually. As you can [see here](https://developer.android.com/guide/playcore/in-app-review/test), you have to download the app from the Play Store to see the popup. I recommend using Android Play Store's [“Internal App Sharing”](https://play.google.com/console/about/internalappsharing/) feature to test.
+* Occasionally, some devices may not show the popup at all as [seen here](https://github.com/jamesmontemagno/StoreReviewPlugin/pull/27#issuecomment-877410136). One way to test whether your device is affected by it, is by downloading [this game that uses v3.1 of this nuget, target SDK version 30, target framework v11.0](https://play.google.com/store/apps/details?id=com.tfp.numberbomb) and win the game once to see the popup. Additionally, you can debug the error using adb locat, as you can [see here](https://github.com/jamesmontemagno/StoreReviewPlugin/issues/26#issue-940942211)
+* The [most common issue/crash type](https://github.com/jamesmontemagno/StoreReviewPlugin/issues/20) is that developers release the app in the release configuration but they only test in the debug configuration. They do not realize that they have set Linker behavior to `Link SDK assemblies only`/`Link all`, and did not follow the proguard steps mentioned above
 
 #### License
 Under MIT, see LICENSE file.
