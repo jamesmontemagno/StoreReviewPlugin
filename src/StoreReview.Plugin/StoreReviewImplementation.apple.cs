@@ -82,7 +82,7 @@ namespace Plugin.StoreReview
             {
 				if (IsiOS14)
 				{
-					var windowScene = UIApplication.SharedApplication.ConnectedScenes.ToArray<UIScene>()?.First(x => x.ActivationState == UISceneActivationState.ForegroundActive) as UIWindowScene;
+                	var windowScene = UIApplication.SharedApplication?.ConnectedScenes?.ToArray<UIScene>()?.FirstOrDefault(x => x.ActivationState == UISceneActivationState.ForegroundActive) as UIWindowScene;
 					if (windowScene != null)
 					{
 						SKStoreReviewController.RequestReview(windowScene);
