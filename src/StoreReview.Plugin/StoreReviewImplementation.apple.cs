@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 #if !__MACOS__
 using UIKit;
+using System.Linq;
 #endif
 using StoreKit;
 
@@ -79,6 +80,15 @@ namespace Plugin.StoreReview
 #if __IOS__
             if (IsiOS103)
             {
+				if (IsiOS14)
+				{
+                	var windowScene = UIApplication.SharedApplication?.ConnectedScenes?.ToArray<UIScene>()?.FirstOrDefault(x => x.ActivationState == UISceneActivationState.ForegroundActive) as UIWindowScene;
+					if (windowScene != null)
+					{
+						SKStoreReviewController.RequestReview(windowScene);
+						return;
+					}
+				}
                 SKStoreReviewController.RequestReview();
             }
 #elif __MACOS__
@@ -105,6 +115,7 @@ namespace Plugin.StoreReview
 
 #if __IOS__
 		bool IsiOS103 => UIDevice.CurrentDevice.CheckSystemVersion(10, 3);
+		bool IsiOS14 => UIDevice.CurrentDevice.CheckSystemVersion(14, 0);
 #endif
 
 	}
