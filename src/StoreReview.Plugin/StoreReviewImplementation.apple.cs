@@ -86,7 +86,7 @@ namespace Plugin.StoreReview
 					if (windowScene != null)
 					{
 						SKStoreReviewController.RequestReview(windowScene);
-						return;
+						return Task.CompletedTask;
 					}
 				}
                 SKStoreReviewController.RequestReview();
