@@ -68,6 +68,10 @@
     <Compile Include="**\*.uwp.cs" />
   </ItemGroup>
 
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
+  </PropertyGroup>
+  
   <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
     <Compile Include="**\*.android.cs" />
 		<PackageReference Include="PlayCore" Version="1.10.2-rc2" />
@@ -85,5 +89,7 @@
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac')) ">
 		<Compile Include="**\*.apple.cs" />
 	</ItemGroup>
+  
+  
 	
 </Project>
