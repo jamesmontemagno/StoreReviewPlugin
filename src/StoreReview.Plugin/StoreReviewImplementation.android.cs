@@ -10,6 +10,12 @@ using System;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
+#if NET
+using Microsoft.Maui.ApplicationModel;
+#else
+using Xamarin.Essentials;
+#endif
+
 namespace Plugin.StoreReview
 {
 	/// <summary>
@@ -99,7 +105,7 @@ namespace Plugin.StoreReview
         }
 
 		Activity Activity =>
-			Xamarin.Essentials.Platform.CurrentActivity ?? throw new NullReferenceException("Current Activity is null, ensure that the MainActivity.cs file is configuring Xamarin.Essentials in your source code so the In App Billing can use it.");
+			Platform.CurrentActivity ?? throw new NullReferenceException("Current Activity is null, ensure that the MainActivity.cs file is configuring Essentials in your source code so the In App Billing can use it.");
 
 		bool forceReturn;
         Com.Google.Android.Play.Core.Tasks.Task launchTask;
