@@ -8,6 +8,7 @@
 |Xamarin.tvOS|All|
 |Xamarin.Android|API 10+|
 |UWP|API 10+|
+|.NET 6+ | iOS/Android/Mac/Windows/MAUI |
 |macOS|All|
 
 
