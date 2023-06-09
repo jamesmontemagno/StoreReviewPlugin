@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;MonoAndroid10.0;Xamarin.iOS10;Xamarin.TVOS10;Xamarin.Mac20;net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;MonoAndroid12.0;Xamarin.iOS10;Xamarin.TVOS10;Xamarin.Mac20;net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.19041;net6.0-windows10.0.19041;</TargetFrameworks>
     <AssemblyName>Plugin.StoreReview</AssemblyName>
     <RootNamespace>Plugin.StoreReview</RootNamespace>
@@ -95,12 +95,12 @@
 
   <ItemGroup Condition=" $(TargetFramework.Contains('-android')) ">
     <Compile Include="**\*.android.cs" />
-    <PackageReference Include="PlayCore" Version="1.10.2-rc2" />
+    <PackageReference Include="Xamarin.Google.Android.Play.Core" Version="1.10.3.5" />
   </ItemGroup>
   
   <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
     <Compile Include="**\*.android.cs" />
-    <PackageReference Include="PlayCore" Version="1.10.2-rc2" />
+    <PackageReference Include="Xamarin.Google.Android.Play.Core" Version="1.10.3.5" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
   </ItemGroup>
 

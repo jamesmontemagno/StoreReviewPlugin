@@ -2,13 +2,13 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
-using Com.Google.Android.Play.Core.Review;
-using Com.Google.Android.Play.Core.Review.Testing;
-using Com.Google.Android.Play.Core.Tasks;
 using Plugin.StoreReview.Abstractions;
 using System;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
+using Xamarin.Google.Android.Play.Core.Tasks;
+using Xamarin.Google.Android.Play.Core.Review;
+using Xamarin.Google.Android.Play.Core.Review.Testing;
 
 #if NET
 using Microsoft.Maui.ApplicationModel;
@@ -105,11 +105,11 @@ namespace Plugin.StoreReview
         }
 
 		Activity Activity =>
-			Platform.CurrentActivity ?? throw new NullReferenceException("Current Activity is null, ensure that the MainActivity.cs file is configuring Essentials in your source code so the In App Billing can use it.");
+			Platform.CurrentActivity ?? throw new NullReferenceException("Current Activity is null, ensure that the MainActivity.cs file is configuring Essentials in your source code so the StoreReview can use it.");
 
 		bool forceReturn;
-        Com.Google.Android.Play.Core.Tasks.Task launchTask;
-        public void OnComplete(Com.Google.Android.Play.Core.Tasks.Task task)
+        Xamarin.Google.Android.Play.Core.Tasks.Task launchTask;
+        public void OnComplete(Xamarin.Google.Android.Play.Core.Tasks.Task task)
 		{
 			if (!task.IsSuccessful || forceReturn)
 			{
@@ -131,5 +131,5 @@ namespace Plugin.StoreReview
 				System.Diagnostics.Debug.WriteLine(ex.Message);
 			}
 		}
-	}
+    }
 }
