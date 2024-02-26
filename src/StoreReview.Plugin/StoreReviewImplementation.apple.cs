@@ -86,7 +86,7 @@ namespace Plugin.StoreReview
 					if (windowScene != null)
 					{
 						SKStoreReviewController.RequestReview(windowScene);
-						return Task.CompletedTask;
+						return Task.FromResult(ReviewStatus.Unknown);
 					}
 				}
                 SKStoreReviewController.RequestReview();
@@ -99,7 +99,7 @@ namespace Plugin.StoreReview
 			}
 #endif
 
-			return Task.FromResult<ReviewStatus>(ReviewStatus.Unknown);
+            return Task.FromResult(ReviewStatus.Unknown);
         }
 
 		internal static Version ParseVersion(string version)
