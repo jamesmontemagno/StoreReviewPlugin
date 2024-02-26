@@ -86,7 +86,7 @@ namespace Plugin.StoreReview
 		/// <summary>
 		/// Requests an app review.
 		/// </summary>
-		public async Task RequestReview(bool testMode)
+		public async Task<ReviewStatus> RequestReview(bool testMode)
 		{
 			tcs?.TrySetCanceled();
 			tcs = new TaskCompletionSource<bool>();
@@ -99,9 +99,11 @@ namespace Plugin.StoreReview
             forceReturn = false;
 			var request = manager.RequestReviewFlow();
 			request.AddOnCompleteListener(this);
-			await tcs.Task;
+			var status = await tcs.Task;
 			manager.Dispose();
             request.Dispose();
+
+            return status ? ReviewStatus.Succeeded : ReviewStatus.Error;
         }
 
 		Activity Activity =>
