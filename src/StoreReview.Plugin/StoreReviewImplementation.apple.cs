@@ -75,7 +75,7 @@ namespace Plugin.StoreReview
         /// <summary>
         /// Requests an app review.
         /// </summary>
-        public Task RequestReview(bool testMode)
+        public Task<ReviewStatus> RequestReview(bool testMode)
 		{
 #if __IOS__
             if (IsiOS103)
@@ -86,7 +86,7 @@ namespace Plugin.StoreReview
 					if (windowScene != null)
 					{
 						SKStoreReviewController.RequestReview(windowScene);
-						return Task.CompletedTask;
+						return Task.FromResult(ReviewStatus.Unknown);
 					}
 				}
                 SKStoreReviewController.RequestReview();
@@ -99,8 +99,8 @@ namespace Plugin.StoreReview
 			}
 #endif
 
-			return Task.CompletedTask;
-		}
+            return Task.FromResult(ReviewStatus.Unknown);
+        }
 
 		internal static Version ParseVersion(string version)
 		{

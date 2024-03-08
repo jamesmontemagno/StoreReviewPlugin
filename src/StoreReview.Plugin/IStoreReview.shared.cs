@@ -22,6 +22,6 @@ namespace Plugin.StoreReview.Abstractions
         /// <summary>
         /// Requests an app review.
         /// </summary>
-        Task RequestReview(bool testMode);
+        Task<ReviewStatus> RequestReview(bool testMode);
     }
 }

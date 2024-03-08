@@ -5,6 +5,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Services.Store;
+using Windows.ApplicationModel.Store;
+using System.Collections.Generic;
+using Windows.System;
 
 namespace Plugin.StoreReview
 {
@@ -27,10 +30,42 @@ namespace Plugin.StoreReview
         public void OpenStoreReviewPage(string appId) =>
             OpenUrl($"ms-windows-store://review/?ProductId={appId}");
 
-		/// <summary>
-		/// Requests an app review.
-		/// </summary>
-		public async Task RequestReview(bool testMode) => _ = await StoreRequestHelper.SendRequestAsync(StoreContext.GetDefault(), 16, string.Empty).AsTask();
+#if NET6_0_OR_GREATER
+        public static object WindowObject { get; set; }
+#endif
+        /// <summary>
+        /// Requests an app review.
+        /// </summary>
+        public async Task<ReviewStatus> RequestReview(bool testMode)
+        {
+            try
+            {
+
+                var context = StoreContext.GetDefault();
+
+#if NET6_0_OR_GREATER
+                if(WindowObject is null)
+                    throw new NullReferenceException("WindowObject is null. Please set the WindowObject property before calling RequestReview.");
+                var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(WindowObject);
+                WinRT.Interop.InitializeWithWindow.Initialize(context, hwnd);
+#endif
+
+                var result = await context.RequestRateAndReviewAppAsync();
+                return result.Status switch
+                {
+                    StoreRateAndReviewStatus.Succeeded => ReviewStatus.Succeeded,
+                    StoreRateAndReviewStatus.CanceledByUser => ReviewStatus.CanceledByUser,
+                    StoreRateAndReviewStatus.Error => ReviewStatus.Error,
+                    StoreRateAndReviewStatus.NetworkError => ReviewStatus.NetworkError,
+                    _ => ReviewStatus.Error,
+                };
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return ReviewStatus.Error;
+            }
+        }
 
 		void OpenUrl(string url)
         {
