@@ -31,7 +31,7 @@ namespace Plugin.StoreReview
             OpenUrl($"ms-windows-store://review/?ProductId={appId}");
 
 #if NET6_0_OR_GREATER
-        public static object WindowObject { get; set; }
+        public static object Window { get; set; }
 #endif
         /// <summary>
         /// Requests an app review.
@@ -44,9 +44,11 @@ namespace Plugin.StoreReview
                 var context = StoreContext.GetDefault();
 
 #if NET6_0_OR_GREATER
-                if(WindowObject is null)
+                if(Window is null)
                     throw new NullReferenceException("WindowObject is null. Please set the WindowObject property before calling RequestReview.");
-                var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(WindowObject);
+                    
+                var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(Window);
+                
                 WinRT.Interop.InitializeWithWindow.Initialize(context, hwnd);
 #endif
 
@@ -64,6 +66,12 @@ namespace Plugin.StoreReview
             {
                 Debug.WriteLine(ex);
                 return ReviewStatus.Error;
+            }
+            finally
+            {
+#if NET6_0_OR_GREATER
+                Window = null;
+#endif
             }
         }
 
