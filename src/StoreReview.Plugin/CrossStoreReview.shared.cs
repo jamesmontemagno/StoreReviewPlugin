@@ -3,6 +3,14 @@ using System;
 
 namespace Plugin.StoreReview
 {
+    public enum ReviewStatus
+    {
+        Succeeded,
+        Error,
+        CanceledByUser,
+        NetworkError,
+        Unknown
+    }
 	/// <summary>
 	/// Cross platform StoreReview implemenations
 	/// </summary>
