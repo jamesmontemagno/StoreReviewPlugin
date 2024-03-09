@@ -1,4 +1,4 @@
-## Store Review Plugin for Xamarin
+## Store Review Plugin for .NET MAUI, Windows, & Xamarin
 
 **Platform Support**
 
@@ -57,8 +57,19 @@ Read for Android: [In-app reviews for your Android apps](https://devblogs.micros
 /// <summary>
 /// Requests the review.
 /// </summary>
-void RequestReview();
+Task<ReviewStatus> RequestReview(bool testMode)
 ```
+
+If you are on .NET 6 Windows you will need to set the Window handle before calling the method:
+
+```csharp
+#if WINDOWS
+        var windowObject = (MauiWinUIWindow)App.Current.Windows[0].Handler.PlatformView;
+        StoreReviewImplementation.Window = windowObject;
+#endif
+```
+
+Test mode is only used on Android.
 
 ### Android setup
 
