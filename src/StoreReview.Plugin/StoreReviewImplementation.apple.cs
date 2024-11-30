@@ -22,7 +22,7 @@ namespace Plugin.StoreReview
         /// Opens the store listing.
         /// </summary>
         /// <param name="appId">App identifier.</param>
-        public void OpenStoreListing(string appId)
+        public Task<bool> OpenStoreListing(string appId)
         {
 #if __IOS__
 			var url = $"itms-apps://itunes.apple.com/app/id{appId}";
@@ -36,20 +36,22 @@ namespace Plugin.StoreReview
 #if __MACOS__
 				AppKit.NSWorkspace.SharedWorkspace.OpenUrl(new NSUrl(url));
 #else
-				UIApplication.SharedApplication.OpenUrl(new NSUrl(url));
+                return UIApplication.SharedApplication.OpenUrlAsync(new NSUrl(url), new UIApplicationOpenUrlOptions());
 #endif
-			}
+            }
 			catch (Exception ex)
             {
                 Debug.WriteLine("Unable to launch app store: " + ex.Message);
             }
+
+            return Task.FromResult(false);
         }
 
         /// <summary>
         /// Opens the store review page.
         /// </summary>
         /// <param name="appId">App identifier.</param>
-        public void OpenStoreReviewPage(string appId)
+        public Task<bool> OpenStoreReviewPage(string appId)
         {
 #if __IOS__
             var url = $"itms-apps://itunes.apple.com/app/id{appId}?action=write-review";
@@ -63,13 +65,15 @@ namespace Plugin.StoreReview
 #if __MACOS__
 				AppKit.NSWorkspace.SharedWorkspace.OpenUrl(new NSUrl(url));
 #else
-				UIApplication.SharedApplication.OpenUrl(new NSUrl(url));
+				return UIApplication.SharedApplication.OpenUrlAsync(new NSUrl(url), new UIApplicationOpenUrlOptions());
 #endif
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Unable to launch app store: " + ex.Message);
             }
+
+            return Task.FromResult(false);
         }
 
         /// <summary>

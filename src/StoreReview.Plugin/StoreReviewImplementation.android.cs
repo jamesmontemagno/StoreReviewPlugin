@@ -22,7 +22,7 @@ namespace Plugin.StoreReview
         /// Opens the store listing.
         /// </summary>
         /// <param name="appId">App identifier.</param>
-        public void OpenStoreListing(string appId) => 
+        public Task<bool> OpenStoreListing(string appId) => 
 			OpenStoreReviewPage(appId);
         
 
@@ -49,14 +49,14 @@ namespace Plugin.StoreReview
         /// Opens the store review page.
         /// </summary>
         /// <param name="appId">App identifier.</param>
-        public void OpenStoreReviewPage(string appId)
+        public Task<bool> OpenStoreReviewPage(string appId)
         {
             var url = $"market://details?id={appId}";
             try
             {
                 var intent = GetRateIntent(url);
                 Application.Context.StartActivity(intent);
-                return;
+                return System.Threading.Tasks.Task.FromResult(true);
             }
             catch (Exception ex)
             {
@@ -68,11 +68,13 @@ namespace Plugin.StoreReview
             {
                 var intent = GetRateIntent(url);
                 Application.Context.StartActivity(intent);
+                return System.Threading.Tasks.Task.FromResult(true);
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Unable to launch app store: " + ex.Message);
             }
+            return System.Threading.Tasks.Task.FromResult(false);
         }
 
 		IReviewManager manager;

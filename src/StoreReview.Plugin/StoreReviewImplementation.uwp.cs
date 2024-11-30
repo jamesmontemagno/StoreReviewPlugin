@@ -20,15 +20,35 @@ namespace Plugin.StoreReview
         /// Opens the store listing.
         /// </summary>
         /// <param name="appId">App identifier.</param>
-        public void OpenStoreListing(string appId) =>
-            OpenUrl($"ms-windows-store://pdp/?ProductId={appId}");
+        public Task<bool> OpenStoreListing(string appId)
+        {
+            try
+            {
+                return OpenUrl($"ms-windows-store://pdp/?ProductId={appId}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Unable to launch app store: " + ex.Message);
+            }
+            return Task.FromResult(false);
+        }
 
         /// <summary>
         /// Opens the store review page.
         /// </summary>
         /// <param name="appId">App identifier.</param>
-        public void OpenStoreReviewPage(string appId) =>
-            OpenUrl($"ms-windows-store://review/?ProductId={appId}");
+        public Task<bool> OpenStoreReviewPage(string appId)
+        {
+            try
+            {
+                return OpenUrl($"ms-windows-store://review/?ProductId={appId}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Unable to launch app store: " + ex.Message);
+            }
+            return Task.FromResult(false);
+        }
 
 #if NET6_0_OR_GREATER
         public static object Window { get; set; }
@@ -75,46 +95,19 @@ namespace Plugin.StoreReview
             }
         }
 
-		void OpenUrl(string url)
+		Task<bool> OpenUrl(string url)
         {
             try
             {
-                Windows.System.Launcher.LaunchUriAsync(new Uri(url)).AsTask().ContinueWith(success =>
-                {
-                    Debug.WriteLine("Opened up windows store");
-                });
+                return Windows.System.Launcher.LaunchUriAsync(new Uri(url)).AsTask();
                 
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Unable to open store: " + ex.Message);
             }
+
+            return Task.FromResult(false);
         }
     }
-
-	static partial class PlatformExtensions
-	{
-		internal static void WatchForError(this IAsyncAction self) =>
-			self.AsTask().WatchForError();
-
-		internal static void WatchForError<T>(this IAsyncOperation<T> self) =>
-			self.AsTask().WatchForError();
-
-		internal static void WatchForError(this Task self)
-		{
-			var context = SynchronizationContext.Current;
-			if (context == null)
-				return;
-
-			self.ContinueWith(
-				t =>
-				{
-					var exception = t.Exception.InnerExceptions.Count > 1 ? t.Exception : t.Exception.InnerException;
-
-					context.Post(e => { throw (Exception)e; }, exception);
-				}, CancellationToken.None,
-				TaskContinuationOptions.OnlyOnFaulted,
-				TaskScheduler.Default);
-		}
-	}
 }
