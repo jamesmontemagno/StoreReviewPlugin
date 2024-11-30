@@ -115,8 +115,9 @@ namespace Plugin.StoreReview
 
 #if __IOS__
 		bool IsiOS103 => UIDevice.CurrentDevice.CheckSystemVersion(10, 3);
-		bool IsiOS14 => UIDevice.CurrentDevice.CheckSystemVersion(14, 0);
+        bool IsiOS14 => UIDevice.CurrentDevice.CheckSystemVersion(14, 0);
+        bool IsiOS16 => UIDevice.CurrentDevice.CheckSystemVersion(16, 0);
 #endif
 
-	}
+    }
 }

@@ -3,18 +3,12 @@ using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Plugin.StoreReview.Abstractions;
-using System;
-using System.Threading.Tasks;
-using Task = System.Threading.Tasks.Task;
-using Xamarin.Google.Android.Play.Core.Tasks;
 using Xamarin.Google.Android.Play.Core.Review;
 using Xamarin.Google.Android.Play.Core.Review.Testing;
+using Android.Gms.Tasks;
 
-#if NET
 using Microsoft.Maui.ApplicationModel;
-#else
-using Xamarin.Essentials;
-#endif
+
 
 namespace Plugin.StoreReview
 {
@@ -110,8 +104,8 @@ namespace Plugin.StoreReview
 			Platform.CurrentActivity ?? throw new NullReferenceException("Current Activity is null, ensure that the MainActivity.cs file is configuring Essentials in your source code so the StoreReview can use it.");
 
 		bool forceReturn;
-        Xamarin.Google.Android.Play.Core.Tasks.Task launchTask;
-        public void OnComplete(Xamarin.Google.Android.Play.Core.Tasks.Task task)
+        Android.Gms.Tasks.Task launchTask;
+        public void OnComplete(Android.Gms.Tasks.Task task)
 		{
 			if (!task.IsSuccessful || forceReturn)
 			{

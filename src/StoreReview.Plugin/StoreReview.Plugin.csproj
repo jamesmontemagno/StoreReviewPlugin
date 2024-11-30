@@ -1,127 +1,101 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;MonoAndroid12.0;Xamarin.iOS10;Xamarin.TVOS10;Xamarin.Mac20;net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
-    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.19041;net6.0-windows10.0.19041;</TargetFrameworks>
+    <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst;net8.0;net9.0-android;net9.0-ios;net9.0-maccatalyst;net9.0</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0;net9.0-windows10.0.19041.0</TargetFrameworks>
+    <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+    <!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
+    <SingleProject>true</SingleProject>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+    <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+
     <AssemblyName>Plugin.StoreReview</AssemblyName>
     <RootNamespace>Plugin.StoreReview</RootNamespace>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
     <Version>1.0.0.0</Version>
-    <Product>$(AssemblyName) ($(TargetFramework))</Product>
-    <Authors>James Montemagno</Authors>
-    <PackageId>Plugin.StoreReview</PackageId>
-    <PackOnBuild>true</PackOnBuild>
-    <PackageIconUrl>https://raw.githubusercontent.com/jamesmontemagno/StoreReviewPlugin/master/icon.png</PackageIconUrl>
-    <PackageLicenseUrl>https://github.com/jamesmontemagno/StoreReviewPlugin/blob/master/LICENSE</PackageLicenseUrl>
-    <Owners>JamesMontemagno</Owners>
-    <PackageProjectUrl>https://github.com/jamesmontemagno/StoreReviewPlugin</PackageProjectUrl>
-    <Summary>Easily request a review or open the store page for your app.</Summary>
-    <PackageTags>
-      xamarin, pcl, xam.pcl, uwp, store review, review, xamarin.forms, ios
-    </PackageTags>
-    <Title>Store Review Plugin for .NET MAUI, Xamarin, and Windows</Title>
-    <Description>
-      Easily request a review or open the store page for your app.
-    </Description>
-    <Copyright>Copyright Refractored LLC</Copyright>
-    <RepositoryUrl>https://github.com/jamesmontemagno/StoreReviewPlugin</RepositoryUrl>
-    <PackageReleaseNotes>See: https://github.com/jamesmontemagno/StoreReviewPlugin </PackageReleaseNotes>
 
-    <NeutralLanguage>en</NeutralLanguage>
-    <LangVersion>latest</LangVersion>
-    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
-    <DefineConstants>$(DefineConstants);</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-ios'))">10.0</SupportedOSPlatformVersion>
-    <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-tvos'))">10.0</SupportedOSPlatformVersion>
-    <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-maccatalyst'))">13.1</SupportedOSPlatformVersion>
-    <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-macos'))">10.14</SupportedOSPlatformVersion>
-    <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-android'))">21.0</SupportedOSPlatformVersion>
-    <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-windows10'))">10.0.17763.0</SupportedOSPlatformVersion>
-    <TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows10'))">10.0.17763.0</TargetPlatformMinVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
-    <!-- sourcelink: Declare that the Repository URL can be published to NuSpec -->
+    <!-- NuGet -->
+    <Authors>author</Authors>
+    <Copyright>Copyright © author and contributors</Copyright>
+    <IsPackable>True</IsPackable>
+    <PackageProjectUrl>https://github.com/jfversluis/Plugin.Maui.Feature</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jfversluis/Plugin.Maui.Feature</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>dotnet-maui;maui;plugin;</PackageTags>
+    <IncludeSymbols>True</IncludeSymbols>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <!-- sourcelink: Embed source files that are not tracked by the source control manager to the PDB -->
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <!-- sourcelink: Include PDB in the built .nupkg -->
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-  </PropertyGroup>
-  
-  <ItemGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
-  <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
-    <DebugSymbols>true</DebugSymbols>
-    <GenerateDocumentationFile>false</GenerateDocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Title>.NET MAUI Feature Plugin</Title>
+    <Description>Plugin.Maui.Feature provides the ability to do this amazing thing in your .NET MAUI application.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <DebugType>portable</DebugType>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="**\*.shared.cs" />
+  <!-- iOS & MacCatalyst -->
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net')) == true AND $(TargetFramework.Contains('-ios')) != true AND $(TargetFramework.Contains('-maccatalyst')) != true ">
+    <Compile Remove="**\*.apple.cs" />
+    <None Include="**\*.apple.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+    <Compile Remove="**\apple\**\*.cs" />
+    <None Include="**\apple\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
   </ItemGroup>
-
-
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+  <!-- Android -->
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net')) == true AND $(TargetFramework.Contains('-android')) != true">
+    <Compile Remove="**\*.android.cs" />
+    <None Include="**\*.android.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+    <Compile Remove="**\android\**\*.cs" />
+    <None Include="**\android\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
   </ItemGroup>
-
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
-    <Compile Include="**\*.uwp.cs" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(TargetFramework.Contains('-windows')) ">
-    <Compile Include="**\*.uwp.cs" />
-  </ItemGroup>
-
-  <PropertyGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
-    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" $(TargetFramework.Contains('-android')) ">
-    <UseMauiEssentials>true</UseMauiEssentials>
-  </PropertyGroup>
 
   <ItemGroup Condition=" $(TargetFramework.Contains('-android')) ">
-    <Compile Include="**\*.android.cs" />
-    <PackageReference Include="Xamarin.Google.Android.Play.Core" Version="1.10.3.5" />
+    <PackageReference Include="Xamarin.Google.Android.Play.Review" Version="2.0.2.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.Contains('net8.0-android')) ">
+    <PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.100" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.Contains('net9.0-android')) ">
+    <PackageReference Include="Microsoft.Maui.Essentials" Version="9.0.10" />
   </ItemGroup>
   
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
-    <Compile Include="**\*.android.cs" />
-    <PackageReference Include="Xamarin.Google.Android.Play.Core" Version="1.10.3.5" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
+  <!-- Windows -->
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net')) == true AND $(TargetFramework.Contains('-windows')) != true">
+    <Compile Remove="**\*.uwp.cs" />
+    <None Include="**\*.uwp.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+    <Compile Remove="**\uwp\**\*.cs" />
+    <None Include="**\uwp\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+  </ItemGroup>
+  <!-- .NET (generic) -->
+  <ItemGroup Condition="!($(TargetFramework.StartsWith('net')) == true AND $(TargetFramework.EndsWith('.0')) == true AND $(TargetFramework.Contains('-')) != true)">
+    <!-- e.g net6.0 or net9.0 (and higher) -->
+    <Compile Remove="**\*.net.cs" />
+    <None Include="**\*.net.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
-    <Compile Include="**\*.apple.cs" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" IsImplicitlyDefined="true" />
+    <PackageReference Include="System.Management" Version="7.0.0" Condition="$(TargetFramework.Contains('-windows')) == true" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.Contains('-ios')) ">
-    <Compile Include="**\*.apple.cs" />
+  <!-- Package additions -->
+  <ItemGroup>
+    <None Include="..\..\icon.png" PackagePath="icon.png" Pack="true" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.TVOS')) ">
-    <Compile Include="**\*.apple.cs" />
-  </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac')) ">
-    <Compile Include="**\*.apple.cs" />
-  </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.Contains('-mac')) ">
-    <Compile Include="**\*.apple.cs" />
-  </ItemGroup>
-
+  
 </Project>

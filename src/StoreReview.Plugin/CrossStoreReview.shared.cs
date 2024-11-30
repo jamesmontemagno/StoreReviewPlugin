@@ -31,26 +31,20 @@ namespace Plugin.StoreReview
 			get
 			{
 				var ret = implementation.Value;
-				if (ret == null)
-				{
-					throw NotImplementedInReferenceAssembly();
-				}
-				return ret;
-			}
-		}
+                return ret is null ? throw NotImplementedInReferenceAssembly() : ret;
+            }
+        }
 
 		static IStoreReview CreateStoreReview()
 		{
-#if NETSTANDARD1_0 || NETSTANDARD2_0
-			return null;
-#else
-#pragma warning disable IDE0022 // Use expression body for methods
+#if ANDROID || IOS || MACCATALYST || MACOS || WINDOWS
 			return new StoreReviewImplementation();
-#pragma warning restore IDE0022 // Use expression body for methods
+#else 
+            return null;
 #endif
-		}
+        }
 
-		internal static Exception NotImplementedInReferenceAssembly() =>
+        internal static Exception NotImplementedInReferenceAssembly() =>
 			new NotImplementedException("This functionality is not implemented in the portable version of this assembly.  You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
 		
 	}
