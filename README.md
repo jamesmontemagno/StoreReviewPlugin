@@ -1,15 +1,8 @@
-## Store Review Plugin for .NET MAUI, Windows, & Xamarin
+## Store Review Plugin for .NET MAUI, iOS, Android, MacCatalyst, Windows
 
 **Platform Support**
 
-|Platform|Version|
-| ------------------- | :------------------: |
-|Xamarin.iOS|iOS 7+|
-|Xamarin.tvOS|All|
-|Xamarin.Android|API 10+|
-|UWP|API 10+|
-|.NET 6+ | iOS/Android/Mac/Windows/MAUI |
-|macOS|All|
+Support for .NET 8+ for iOS/Android/MacCatalyst/Windows/MAUI
 
 
 ### Build Status
@@ -31,7 +24,7 @@ UWP:  This is the Store ID: You can find the link to your app's Store listing on
 /// Opens the store listing.
 /// </summary>
 /// <param name="appId">App identifier.</param>
-void OpenStoreListing(string appId);
+Task<bool> OpenStoreListing(string appId);
 ```
 
 #### Open to Review Page
@@ -42,7 +35,7 @@ Launches app directly to Review Page if possible
 /// Opens the store review page.
 /// </summary>
 /// <param name="appId">App identifier.</param>
-void OpenStoreReviewPage(string appId);
+Task<bool> OpenStoreReviewPage(string appId);
 ```
 
 #### Request In-App Review
@@ -60,7 +53,7 @@ Read for Android: [In-app reviews for your Android apps](https://devblogs.micros
 Task<ReviewStatus> RequestReview(bool testMode)
 ```
 
-If you are on .NET 6 Windows you will need to set the Window handle before calling the method:
+If you are on .NET 8 Windows you will need to set the Window handle before calling the method:
 
 ```csharp
 #if WINDOWS
@@ -70,26 +63,6 @@ If you are on .NET 6 Windows you will need to set the Window handle before calli
 ```
 
 Test mode is only used on Android.
-
-### Android setup
-
-Ensure that you follow the [Xamarin.Essentials setup steps](https://docs.microsoft.com/xamarin/essentials/get-started?WT.mc_id=friends-0000-jamont). And follow the steps below if you linker behavior is not set to `Don't Link`.
-
-#### Android code shrinker (Proguard & r8)
-
-If you use the plugin with `Link SDK assemblies only`/`Link all`, you have to do the following:
-
-1. Create a `proguard.txt` file in your android project and add the following:
-
-```
-    -keep class com.google.android.play.core.common.PlayCoreDialogWrapperActivity
-    -keep class com.google.android.play.core.review.** { *; }
-    -keep class com.google.android.play.core.tasks.** { *; }
-```
-
-2. Include it to your project
-3. Properties > Build Action > ProguardConfiguration
-4. Go to you Android project options and set your `Code Shrinker` to `ProGuard` or `r8`
 
 ### Testing & Debugging issues
 

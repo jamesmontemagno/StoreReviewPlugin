@@ -1,133 +1,129 @@
-using Android.App;
 using Android.Content;
+using Android.Gms.Tasks;
 using Android.OS;
-using Android.Runtime;
+using Microsoft.Maui.ApplicationModel;
 using Plugin.StoreReview.Abstractions;
 using Xamarin.Google.Android.Play.Core.Review;
 using Xamarin.Google.Android.Play.Core.Review.Testing;
-using Android.Gms.Tasks;
-
-using Microsoft.Maui.ApplicationModel;
 
 
-namespace Plugin.StoreReview
+namespace Plugin.StoreReview;
+
+public class StoreReviewImplementation : Java.Lang.Object, IStoreReview, IOnCompleteListener
 {
-	/// <summary>
-	/// Implementation for Feature
-	/// </summary>
-	[Preserve(AllMembers = true)]
-	public class StoreReviewImplementation : Java.Lang.Object, IStoreReview, IOnCompleteListener
+    /// <summary>
+    /// Opens the store listing.
+    /// </summary>
+    /// <param name="appId">App identifier.</param>
+    public Task<bool> OpenStoreListing(string appId) =>
+            OpenStoreReviewPage(appId);
+
+    static Intent GetRateIntent(string url)
     {
-        /// <summary>
-        /// Opens the store listing.
-        /// </summary>
-        /// <param name="appId">App identifier.</param>
-        public Task<bool> OpenStoreListing(string appId) => 
-			OpenStoreReviewPage(appId);
-        
+        var intent = new Intent(Intent.ActionView, Android.Net.Uri.Parse(url));
 
-        Intent GetRateIntent(string url)
+        intent.AddFlags(ActivityFlags.NoHistory);
+        intent.AddFlags(ActivityFlags.MultipleTask);
+        if ((int)Build.VERSION.SdkInt >= 21)
         {
-            var intent = new Intent(Intent.ActionView, Android.Net.Uri.Parse(url));
-
-            intent.AddFlags(ActivityFlags.NoHistory);
-            intent.AddFlags(ActivityFlags.MultipleTask);
-            if((int)Build.VERSION.SdkInt >= 21)
-            {
-                intent.AddFlags(ActivityFlags.NewDocument);
-            }
-            else
-            {
-                intent.AddFlags(ActivityFlags.ClearWhenTaskReset);
-            }
-			intent.SetFlags(ActivityFlags.ClearTop);
-			intent.SetFlags(ActivityFlags.NewTask);
-			return intent;
+            intent.AddFlags(ActivityFlags.NewDocument);
         }
-
-        /// <summary>
-        /// Opens the store review page.
-        /// </summary>
-        /// <param name="appId">App identifier.</param>
-        public Task<bool> OpenStoreReviewPage(string appId)
+        else
         {
-            var url = $"market://details?id={appId}";
-            try
-            {
-                var intent = GetRateIntent(url);
-                Application.Context.StartActivity(intent);
-                return System.Threading.Tasks.Task.FromResult(true);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Unable to launch app store: " + ex.Message);
-            }
+            intent.AddFlags(ActivityFlags.ClearWhenTaskReset);
+        }
+        intent.SetFlags(ActivityFlags.ClearTop);
+        intent.SetFlags(ActivityFlags.NewTask);
+        return intent;
+    }
 
-            url = $"https://play.google.com/store/apps/details?id={appId}";
-            try
-            {
-                var intent = GetRateIntent(url);
-                Application.Context.StartActivity(intent);
-                return System.Threading.Tasks.Task.FromResult(true);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Unable to launch app store: " + ex.Message);
-            }
-            return System.Threading.Tasks.Task.FromResult(false);
+    /// <summary>
+    /// Opens the store review page.
+    /// </summary>
+    /// <param name="appId">App identifier.</param>
+    public Task<bool> OpenStoreReviewPage(string appId)
+    {
+        var url = $"market://details?id={appId}";
+        try
+        {
+            var intent = GetRateIntent(url);
+            Application.Context.StartActivity(intent);
+            return System.Threading.Tasks.Task.FromResult(true);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine("Unable to launch app store: " + ex.Message);
         }
 
-		IReviewManager manager;
-		TaskCompletionSource<bool> tcs;
-		/// <summary>
-		/// Requests an app review.
-		/// </summary>
-		public async Task<ReviewStatus> RequestReview(bool testMode)
-		{
-			tcs?.TrySetCanceled();
-			tcs = new TaskCompletionSource<bool>();
+        url = $"https://play.google.com/store/apps/details?id={appId}";
+        try
+        {
+            var intent = GetRateIntent(url);
+            Application.Context.StartActivity(intent);
+            return System.Threading.Tasks.Task.FromResult(true);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine("Unable to launch app store: " + ex.Message);
+        }
+        return System.Threading.Tasks.Task.FromResult(false);
+    }
 
-			if (testMode)
-				manager = new FakeReviewManager(Application.Context);
-			else
-				manager = ReviewManagerFactory.Create(Application.Context);
+    IReviewManager? manager;
+    TaskCompletionSource<bool>? tcs;
+    /// <summary>
+    /// Requests an app review.
+    /// </summary>
+    public async Task<ReviewStatus> RequestReview(bool testMode)
+    {
+        tcs?.TrySetCanceled();
+        tcs = new TaskCompletionSource<bool>();
 
-            forceReturn = false;
-			var request = manager.RequestReviewFlow();
-			request.AddOnCompleteListener(this);
-			var status = await tcs.Task;
-			manager.Dispose();
-            request.Dispose();
+        if (testMode)
+            manager = new FakeReviewManager(Application.Context);
+        else
+            manager = ReviewManagerFactory.Create(Application.Context);
 
-            return status ? ReviewStatus.Succeeded : ReviewStatus.Error;
+        forceReturn = false;
+        var request = manager.RequestReviewFlow();
+        request.AddOnCompleteListener(this);
+        var status = await tcs.Task;
+        manager.Dispose();
+        request.Dispose();
+
+        return status ? ReviewStatus.Succeeded : ReviewStatus.Error;
+    }
+
+    Activity Activity =>
+        Platform.CurrentActivity ?? throw new NullReferenceException("Current Activity is null, ensure that .NET MAUI is configured for Essentials.");
+
+    bool forceReturn;
+    Android.Gms.Tasks.Task? launchTask;
+    public void OnComplete(Android.Gms.Tasks.Task task)
+    {
+        if (!task.IsSuccessful || forceReturn)
+        {
+            tcs?.TrySetResult(forceReturn);
+            launchTask?.Dispose();
+            return;
         }
 
-		Activity Activity =>
-			Platform.CurrentActivity ?? throw new NullReferenceException("Current Activity is null, ensure that the MainActivity.cs file is configuring Essentials in your source code so the StoreReview can use it.");
-
-		bool forceReturn;
-        Android.Gms.Tasks.Task launchTask;
-        public void OnComplete(Android.Gms.Tasks.Task task)
-		{
-			if (!task.IsSuccessful || forceReturn)
-			{
-				tcs.TrySetResult(forceReturn);
-                launchTask?.Dispose();
+        try
+        {
+            if (task.GetResult(Java.Lang.Class.FromType(typeof(ReviewInfo))) is not ReviewInfo reviewInfo)
+            {
+                tcs?.TrySetResult(false);
                 return;
-			}
+            }
 
-			try
-			{
-				var reviewInfo = (ReviewInfo)task.GetResult(Java.Lang.Class.FromType(typeof(ReviewInfo)));
-				forceReturn = true;
-                launchTask = manager.LaunchReviewFlow(Activity, reviewInfo);
-                launchTask.AddOnCompleteListener(this);
-			}
-			catch (Exception ex)
-			{
-				tcs.TrySetResult(false);
-				System.Diagnostics.Debug.WriteLine(ex.Message);
-			}
-		}
+            forceReturn = true;
+            launchTask = manager?.LaunchReviewFlow(Activity, reviewInfo);
+            launchTask?.AddOnCompleteListener(this);
+        }
+        catch (Exception ex)
+        {
+            tcs?.TrySetResult(false);
+            System.Diagnostics.Debug.WriteLine(ex.Message);
+        }
     }
 }

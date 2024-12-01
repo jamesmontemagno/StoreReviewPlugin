@@ -22,19 +22,21 @@
     <Version>1.0.0.0</Version>
 
     <!-- NuGet -->
-    <Authors>author</Authors>
-    <Copyright>Copyright © author and contributors</Copyright>
+    <Authors>James Montemagno</Authors>
+    <Copyright>Copyright Refractored LLC and contributors</Copyright>
     <IsPackable>True</IsPackable>
-    <PackageProjectUrl>https://github.com/jfversluis/Plugin.Maui.Feature</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/jfversluis/Plugin.Maui.Feature</RepositoryUrl>
+    <PackageId>Plugin.StoreReview</PackageId>
+    <PackageProjectUrl>https://github.com/jamesmontemagno/storereviewplugin</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jamesmontemagno/storereviewplugin</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>dotnet-maui;maui;plugin;</PackageTags>
+    <PackageTags>dotnet-maui;maui;plugin;review;storereview;android;ios;windows;maccatalyst</PackageTags>
     <IncludeSymbols>True</IncludeSymbols>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <Title>.NET MAUI Feature Plugin</Title>
-    <Description>Plugin.Maui.Feature provides the ability to do this amazing thing in your .NET MAUI application.</Description>
+    <Title>Store Review Plugin for .NET MAUI, iOS, Android, MacCatalyst, and Windows</Title>
+    <Description>Easily request a review or open the store page for your app.</Description>
+    <Summary>Easily request a review or open the store page for your app.</Summary>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <DebugType>portable</DebugType>

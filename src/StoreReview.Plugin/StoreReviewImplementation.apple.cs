@@ -1,127 +1,92 @@
-using Foundation;
-using Plugin.StoreReview.Abstractions;
-
-using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
-#if !__MACOS__
-using UIKit;
-using System.Linq;
-#endif
+using Plugin.StoreReview.Abstractions;
 using StoreKit;
 
-namespace Plugin.StoreReview
+namespace Plugin.StoreReview;
+
+/// <summary>
+/// Implementation for StoreReview
+/// </summary>
+[Preserve(AllMembers = true)]
+public class StoreReviewImplementation : IStoreReview
 {
-	/// <summary>
-	/// Implementation for StoreReview
-	/// </summary>
-	[Preserve(AllMembers = true)]
-	public class StoreReviewImplementation : IStoreReview
+    /// <summary>
+    /// Opens the store listing.
+    /// </summary>
+    /// <param name="appId">App identifier.</param>
+    public Task<bool> OpenStoreListing(string appId)
     {
-        /// <summary>
-        /// Opens the store listing.
-        /// </summary>
-        /// <param name="appId">App identifier.</param>
-        public Task<bool> OpenStoreListing(string appId)
+
+        var url = $"itms-apps://itunes.apple.com/app/id{appId}";
+
+        try
         {
-#if __IOS__
-			var url = $"itms-apps://itunes.apple.com/app/id{appId}";
-#elif __TVOS__
-			var url = $"com.apple.TVAppStore://itunes.apple.com/app/id{appId}";
-#elif __MACOS__
-			var url = $"macappstore://itunes.apple.com/app/id{appId}?mt=12";
-#endif
-			try
-            {
-#if __MACOS__
-				AppKit.NSWorkspace.SharedWorkspace.OpenUrl(new NSUrl(url));
-#else
-                return UIApplication.SharedApplication.OpenUrlAsync(new NSUrl(url), new UIApplicationOpenUrlOptions());
-#endif
-            }
-			catch (Exception ex)
-            {
-                Debug.WriteLine("Unable to launch app store: " + ex.Message);
-            }
-
-            return Task.FromResult(false);
+            return UIApplication.SharedApplication.OpenUrlAsync(new NSUrl(url), new UIApplicationOpenUrlOptions());
         }
-
-        /// <summary>
-        /// Opens the store review page.
-        /// </summary>
-        /// <param name="appId">App identifier.</param>
-        public Task<bool> OpenStoreReviewPage(string appId)
+        catch (Exception ex)
         {
-#if __IOS__
-            var url = $"itms-apps://itunes.apple.com/app/id{appId}?action=write-review";
-#elif __TVOS__
-			var url = $"com.apple.TVAppStore://itunes.apple.com/app/id{appId}?action=write-review";
-#elif __MACOS__
-			var url = $"macappstore://itunes.apple.com/app/id{appId}?action=write-review";
-#endif
-			try
-			{
-#if __MACOS__
-				AppKit.NSWorkspace.SharedWorkspace.OpenUrl(new NSUrl(url));
-#else
-				return UIApplication.SharedApplication.OpenUrlAsync(new NSUrl(url), new UIApplicationOpenUrlOptions());
-#endif
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Unable to launch app store: " + ex.Message);
-            }
-
-            return Task.FromResult(false);
+            Debug.WriteLine("Unable to launch app store: " + ex.Message);
         }
 
-        /// <summary>
-        /// Requests an app review.
-        /// </summary>
-        public Task<ReviewStatus> RequestReview(bool testMode)
-		{
-#if __IOS__
-            if (IsiOS103)
-            {
-				if (IsiOS14)
-				{
-                	var windowScene = UIApplication.SharedApplication?.ConnectedScenes?.ToArray<UIScene>()?.FirstOrDefault(x => x.ActivationState == UISceneActivationState.ForegroundActive) as UIWindowScene;
-					if (windowScene != null)
-					{
-						SKStoreReviewController.RequestReview(windowScene);
-						return Task.FromResult(ReviewStatus.Unknown);
-					}
-				}
-                SKStoreReviewController.RequestReview();
-            }
-#elif __MACOS__
-			using var info = new NSProcessInfo();
-			if (ParseVersion(info.OperatingSystemVersion.ToString()) >= new Version(10, 14))
-			{
-				SKStoreReviewController.RequestReview();
-			}
-#endif
-
-            return Task.FromResult(ReviewStatus.Unknown);
-        }
-
-		internal static Version ParseVersion(string version)
-		{
-			if (Version.TryParse(version, out var number))
-				return number;
-
-			if (int.TryParse(version, out var major))
-				return new Version(major, 0);
-
-			return new Version(0, 0);
-		}
-
-#if __IOS__
-		bool IsiOS103 => UIDevice.CurrentDevice.CheckSystemVersion(10, 3);
-        bool IsiOS14 => UIDevice.CurrentDevice.CheckSystemVersion(14, 0);
-        bool IsiOS16 => UIDevice.CurrentDevice.CheckSystemVersion(16, 0);
-#endif
-
+        return Task.FromResult(false);
     }
+
+    /// <summary>
+    /// Opens the store review page.
+    /// </summary>
+    /// <param name="appId">App identifier.</param>
+    public Task<bool> OpenStoreReviewPage(string appId)
+    {
+        var url = $"itms-apps://itunes.apple.com/app/id{appId}?action=write-review";
+
+        try
+        {
+            return UIApplication.SharedApplication.OpenUrlAsync(new NSUrl(url), new UIApplicationOpenUrlOptions());
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine("Unable to launch app store: " + ex.Message);
+        }
+
+        return Task.FromResult(false);
+    }
+
+    /// <summary>
+    /// Requests an app review.
+    /// </summary>
+    public Task<ReviewStatus> RequestReview(bool testMode)
+    {
+        if (IsiOS103)
+        {
+            if (IsiOS14)
+            {
+                var windowScene = UIApplication.SharedApplication?.ConnectedScenes?.ToArray<UIScene>()?.FirstOrDefault(x => x.ActivationState == UISceneActivationState.ForegroundActive) as UIWindowScene;
+                if (windowScene is not null)
+                {
+#pragma warning disable CA1422 // Validate platform compatibility
+                    SKStoreReviewController.RequestReview(windowScene);
+#pragma warning restore CA1422 // Validate platform compatibility
+                    return Task.FromResult(ReviewStatus.Unknown);
+                }
+            }
+#pragma warning disable CA1422 // Validate platform compatibility
+            SKStoreReviewController.RequestReview();
+#pragma warning restore CA1422 // Validate platform compatibility
+        }
+        return Task.FromResult(ReviewStatus.Unknown);
+    }
+
+    internal static Version ParseVersion(string version)
+    {
+        if (Version.TryParse(version, out var number))
+            return number;
+
+        if (int.TryParse(version, out var major))
+            return new Version(major, 0);
+
+        return new Version(0, 0);
+    }
+
+    static bool IsiOS103 => UIDevice.CurrentDevice.CheckSystemVersion(10, 3);
+    static bool IsiOS14 => UIDevice.CurrentDevice.CheckSystemVersion(14, 0);
 }
